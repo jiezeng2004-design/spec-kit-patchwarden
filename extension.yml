@@ -1,0 +1,43 @@
+schema_version: "1.0"
+
+extension:
+  id: "patchwarden-evidence"
+  name: "PatchWarden Evidence Pack"
+  version: "1.0.0"
+  description: "Create bounded, traceable PatchWarden evidence packs for Spec Kit implementations."
+  author: "Zengjie"
+  repository: "https://github.com/jiezeng2004-design/spec-kit-patchwarden"
+  homepage: "https://github.com/jiezeng2004-design/spec-kit-patchwarden"
+  license: "MIT"
+
+requires:
+  speckit_version: ">=0.1.0"
+
+provides:
+  commands:
+    - name: "speckit.patchwarden-evidence.prepare-evidence"
+      file: "commands/prepare-evidence.md"
+      description: "Prepare a bounded PatchWarden lineage for the current Spec Kit implementation."
+    - name: "speckit.patchwarden-evidence.export-evidence"
+      file: "commands/export-evidence.md"
+      description: "Export and summarize a PatchWarden evidence pack for an accepted lineage."
+
+hooks:
+  before_implement:
+    command: "speckit.patchwarden-evidence.prepare-evidence"
+    priority: 20
+    optional: true
+    prompt: "Prepare a PatchWarden evidence lineage for this implementation?"
+    description: "Optionally records the approved Spec Kit scope before implementation."
+  after_implement:
+    command: "speckit.patchwarden-evidence.export-evidence"
+    priority: 20
+    optional: true
+    prompt: "Export a PatchWarden evidence pack after this implementation?"
+    description: "Optionally exports bounded evidence for a completed PatchWarden lineage."
+
+tags:
+  - "verification"
+  - "evidence"
+  - "traceability"
+  - "security"
